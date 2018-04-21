@@ -42,9 +42,15 @@ def main():
     # except OSError:
     #     print("kmers / output / 1 did not exist, creating now")
     # records.saveAsTextFile("kmers/output/1")
-    
+
     #Step 6: filter redundant records
-    filterRDD = records.flatMap(lambda x: re.sub('^[ACGTNacgt]+', '', x))
+    # records = records.filter(lambda x: len(x)==70)
+    #filterRDD = records.flatMap(lambda x: re.sub('[^ACGTNacgt]+', '', x))
+    filterRDD = records.filter(
+        lambda x: x[0] != '>' or x[0] != ';' or x[0] != '@' or x[0] != '+' or x[0] != '!' or x[0] != '~')
+
+    for i in filterRDD.collect():
+        print(i)
     # try:
     #     shutil.rmtree("kmers/output/1.5")
     #     print("removed old output")
@@ -52,11 +58,12 @@ def main():
     #     print("kmers / output / 1.5 did not exist, creating now")
     # filterRDD.saveAsTextFile("kmers/output/1.5")
 
-    #Step 7: generate K-mers
+    # Step 7: generate K-mers
     
     kmers = filterRDD.map(
-            lambda x: (x[0:k.value[0]],1))
-
+            lambda x: (x[0:3],1))
+    for k in kmers.collect():
+        print(k)
     # try:
     #     shutil.rmtree("kmers/output/2")
     #     print("removed old output")
