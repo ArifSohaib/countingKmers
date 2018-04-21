@@ -44,7 +44,7 @@ def main():
     # records.saveAsTextFile("kmers/output/1")
     
     #Step 6: filter redundant records
-    filterRDD = records.flatMap(lambda x: re.sub('[ACGTNacgt]+', '', x))
+    filterRDD = records.flatMap(lambda x: re.sub('^[ACGTNacgt]+', '', x))
     # try:
     #     shutil.rmtree("kmers/output/1.5")
     #     print("removed old output")
