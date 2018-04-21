@@ -36,12 +36,12 @@ def main():
     #Step 5: read FASTQ file from HDFS and create the first RDD
     records = ctx.textFile(files.value[0])
     #remove file if exists
-    # try:
-    #     shutil.rmtree("kmers/output/1")
-    #     print("removed old output")
-    # except OSError:
-    #     print("kmers / output / 1 did not exist, creating now")
-    # records.saveAsTextFile("kmers/output/1")
+    try:
+        shutil.rmtree("kmers/output/1")
+        print("removed old output")
+    except OSError:
+        print("kmers / output / 1 did not exist, creating now")
+    records.saveAsTextFile("kmers/output/1")
 
     #Step 6: filter redundant records
     # records = records.filter(lambda x: len(x)==70)
@@ -51,12 +51,12 @@ def main():
 
     for i in filterRDD.collect():
         print(i)
-    # try:
-    #     shutil.rmtree("kmers/output/1.5")
-    #     print("removed old output")
-    # except OSError:
-    #     print("kmers / output / 1.5 did not exist, creating now")
-    # filterRDD.saveAsTextFile("kmers/output/1.5")
+    try:
+        shutil.rmtree("kmers/output/1.5")
+        print("removed old output")
+    except OSError:
+        print("kmers / output / 1.5 did not exist, creating now")
+    filterRDD.saveAsTextFile("kmers/output/1.5")
 
     # Step 7: generate K-mers
     
@@ -64,21 +64,21 @@ def main():
             lambda x: (x[0:3],1))
     for k in kmers.collect():
         print(k)
-    # try:
-    #     shutil.rmtree("kmers/output/2")
-    #     print("removed old output")
-    # except OSError:
-    #     print("kmers / output / 2 did not exist, creating now")
-    # kmers.saveAsTextFile("kmers/output/2")
+    try:
+        shutil.rmtree("kmers/output/2")
+        print("removed old output")
+    except OSError:
+        print("kmers / output / 2 did not exist, creating now")
+    kmers.saveAsTextFile("kmers/output/2")
 
     # Step 8: Combine/reduce frequent K-mers
     grouped = kmers.reduceByKey(add)
-    # try:
-    #     shutil.rmtree("kmers/output/2.5")
-    #     print("removed old output")
-    # except OSError:
-    #     print("kmers / output / 2.5 did not exist, creating now")
-    # grouped.saveAsTextFile("kmers/output/2.5")
+    try:
+        shutil.rmtree("kmers/output/2.5")
+        print("removed old output")
+    except OSError:
+        print("kmers / output / 2.5 did not exist, creating now")
+    grouped.saveAsTextFile("kmers/output/2.5")
 
     # Step 9: create a local top N for all partitions
     sortedKmers = grouped.map(lambda x: (int(-x[1]),x[0])).sortByKey().map(lambda x: (x[1], -1*int(x[0])))
