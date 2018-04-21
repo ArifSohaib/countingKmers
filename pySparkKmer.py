@@ -44,9 +44,11 @@ def main():
     # records.saveAsTextFile("kmers/output/1")
 
     #Step 6: filter redundant records
-    records = records.filter(lambda x: len(x)<76)
-    filterRDD = records.filter(
-        lambda x: x[0:3] != '>' or x[0:3] != ';' or x[0:3] != '@' or x[0:3] != '+' or x[0:3] != '!' or x[0:3] != '~')
+    # records = records.filter(lambda x: len(x)<76)
+    # records = records.filter(
+    #     lambda x: x[0:3] != '>' or x[0:3] != ';' or x[0:3] != '@' or x[0:3] != '+' or x[0:3] != '!' or x[0:3] != '~')
+    records = records.filter(
+        lambda x: re.match('^[ACGTNacgn]+',x) != None)
 
     # for i in filterRDD.collect():
     #     print(i)
@@ -59,7 +61,7 @@ def main():
 
     # Step 7: generate K-mers
     kVal = k.value[0]
-    kmers = filterRDD.map(
+    kmers = records.map(
             lambda x: (x[0:kVal],1))
     # for k in kmers.collect():
     #     print(k)
