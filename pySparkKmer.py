@@ -44,8 +44,7 @@ def main():
     # records.saveAsTextFile("kmers/output/1")
 
     #Step 6: filter redundant records
-    # records = records.filter(lambda x: len(x)==70)
-    #filterRDD = records.flatMap(lambda x: re.sub('[^ACGTNacgt]+', '', x))
+    records = records.filter(lambda x: len(x)<75)
     filterRDD = records.filter(
         lambda x: x[0:3] != '>' or x[0:3] != ';' or x[0:3] != '@' or x[0:3] != '+' or x[0:3] != '!' or x[0:3] != '~')
 
