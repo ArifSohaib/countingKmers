@@ -47,7 +47,7 @@ def main():
     # records = records.filter(lambda x: len(x)==70)
     #filterRDD = records.flatMap(lambda x: re.sub('[^ACGTNacgt]+', '', x))
     filterRDD = records.filter(
-        lambda x: x[0] != '>' or x[0] != ';' or x[0] != '@' or x[0] != '+' or x[0] != '!' or x[0] != '~')
+        lambda x: x[0:3] != '>' or x[0:3] != ';' or x[0:3] != '@' or x[0:3] != '+' or x[0:3] != '!' or x[0:3] != '~')
 
     # for i in filterRDD.collect():
     #     print(i)
