@@ -48,7 +48,7 @@ def main():
     # records = records.filter(
     #     lambda x: x[0:3] != '>' or x[0:3] != ';' or x[0:3] != '@' or x[0:3] != '+' or x[0:3] != '!' or x[0:3] != '~')
     records = records.filter(
-        lambda x: re.match('^[ACGTNacgn]+',x) != None)
+        lambda x: re.match('[ACGTNacgn]+',x) != None)
 
     # for i in filterRDD.collect():
     #     print(i)
