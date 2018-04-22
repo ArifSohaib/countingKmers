@@ -47,10 +47,11 @@ def main():
     # records = records.filter(lambda x: len(x)<76)
     # records = records.filter(
     #     lambda x: x[0:3] != '>' or x[0:3] != ';' or x[0:3] != '@' or x[0:3] != '+' or x[0:3] != '!' or x[0:3] != '~')
-    specChar = re.compile('\\>\\@\\#\\?\\=\\:\\;\\*\\&\\ ')
-    num = re.compile('[0-9]+')
+    # specChar = re.compile('\\>\\@\\#\\?\\=\\:\\;\\*\\&\\ ')
+    # num = re.compile('[0-9]+')
+    alphabet = re.compile('^[A-Za-z]+')
     pattern = re.compile('^[ACGTNacgn]+')
-    records = records.filter(lambda x: re.match(specChar, x) == None).filter(lambda x: re.match(num, x) == None).filter(
+    records = records.filter(lambda x: re.match(alphabet, x) != None).filter(
         lambda x: re.match(pattern, x) != None)
 
     # for i in filterRDD.collect():
