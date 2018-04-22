@@ -98,7 +98,7 @@ def main():
     # for val in sortedKmers.takeOrdered(n.value[0], key=lambda x:-1*int(x[1])):
     #     print(val)
     end = time.time()
-    print(start-end)
+    print(end-start)
 
 if __name__ == '__main__':
     main()
