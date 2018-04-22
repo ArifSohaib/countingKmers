@@ -44,9 +44,9 @@ def main():
     # records.saveAsTextFile("kmers/output/1")
 
     #Step 6: filter redundant records
-    specChar = re.compile('[0-9]\\>\\@\\#\\?\\=\\:\\;\\*\\&\\ ')
-    pattern = re.compile('^[ACGTNacgn]+')
-    records = records.filter(lambda x: re.match(pattern, x) != None).filter(lambda x: re.match(specChar,x)==None)
+    #specChar = re.compile('[A-Za-z]')
+    pattern = re.compile('^[ACGTNacgn]+$')
+    records = records.filter(lambda x: re.match(pattern, x) != None)#.filter(lambda x: re.match(specChar,x)!=None)
 
     # for i in filterRDD.collect():
     #     print(i)
@@ -92,6 +92,9 @@ def main():
     print("Top N={} {}-mers:".format(n.value[0],k.value[0]))
     for val in sortedKmers.take(n.value[0]):
         print(val)
+    # print("Bottom N={} {}-mers:".format(n.value[0], k.value[0]))
+    # for val in sortedKmers.takeOrdered(n.value[0], key=lambda x:-1*int(x[1])):
+    #     print(val)
 
 if __name__ == '__main__':
     main()
