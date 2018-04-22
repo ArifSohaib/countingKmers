@@ -8,10 +8,12 @@ import re
 findspark.init(os.environ['SPARK_HOME'])
 import pyspark
 from pyspark.context import SparkContext
+import time
 
 
 
 def main():
+    start = time.time()
     #Step 2: handle input parameters
     parser = argparse.ArgumentParser(description='Process some integers.')
     #filenames, K and N
@@ -46,7 +48,7 @@ def main():
     #Step 6: filter redundant records
     #specChar = re.compile('[A-Za-z]')
     pattern = re.compile('^[ACGTNacgn]+$')
-    records = records.filter(lambda x: re.match(pattern, x) != None)#.filter(lambda x: re.match(specChar,x)!=None)
+    records = records.filter(lambda x: re.match(pattern, x) != None)
 
     # for i in filterRDD.collect():
     #     print(i)
@@ -95,6 +97,8 @@ def main():
     # print("Bottom N={} {}-mers:".format(n.value[0], k.value[0]))
     # for val in sortedKmers.takeOrdered(n.value[0], key=lambda x:-1*int(x[1])):
     #     print(val)
+    end = time.time()
+    print(start-end)
 
 if __name__ == '__main__':
     main()
