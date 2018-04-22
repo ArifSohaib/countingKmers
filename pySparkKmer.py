@@ -47,8 +47,10 @@ def main():
     # records = records.filter(lambda x: len(x)<76)
     # records = records.filter(
     #     lambda x: x[0:3] != '>' or x[0:3] != ';' or x[0:3] != '@' or x[0:3] != '+' or x[0:3] != '!' or x[0:3] != '~')
-    records = records.filter(
-        lambda x: re.match('[ACGTNacgn]+',x) != None)
+    specChar = re.compile('\\>\\@\\#\\?\\=\\:\\;')
+    pattern = re.compile('^[ACGTNacgn]+')
+    records = records.filter(lambda x: re.match(pattern,x) != None).filter(
+        lambda x: re.match(pattern, x) != None)
 
     # for i in filterRDD.collect():
     #     print(i)
