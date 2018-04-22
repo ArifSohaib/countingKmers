@@ -50,7 +50,7 @@ def main():
     specChar = re.compile('\\>\\@\\#\\?\\=\\:\\;\\*\\&\\ ')
     num = re.compile('[0-9]+')
     pattern = re.compile('^[ACGTNacgn]+')
-    records = records.filter(lambda x: re.match(specChar,x) == None).filter(
+    records = records.filter(lambda x: re.match(specChar, x) == None).filter(lambda x: re.match(num, x) == None).filter(
         lambda x: re.match(pattern, x) != None)
 
     # for i in filterRDD.collect():
